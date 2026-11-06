@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
@@ -9,7 +9,7 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GeometRi.Tests", "GeometRi.
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GeometRiExample", "GeometRiExample\GeometRiExample.vbproj", "{1C73CAA1-A41C-44C1-A1BD-2EA51ACFBEED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeometRiExample.CSharp", "GeometRiExample.CSharp\GeometRiExample.CSharp.csproj", "{AC37FB79-BBBA-4F6B-9BC2-0B1110936B9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeometRiExample.CSharp", "GeometRiExample.CSharp\GeometRiExample.CSharp.csproj", "{AC37FB79-BBBA-4F6B-9BC2-0B1110936B9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
