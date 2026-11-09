@@ -22,8 +22,8 @@ Public Class Line3d
     ''' <param name="p">Point on the line.</param>
     ''' <param name="v">Direction vector.</param>
     Public Sub New(ByVal p As Point3d, ByVal v As Vector3d)
-        _point = p.Clone
-        _dir = v.Clone
+        _point = DirectCast(p.Clone, Point3d)
+        _dir = DirectCast(v.Clone, Vector3d)
     End Sub
 
     ''' <summary>
@@ -32,7 +32,7 @@ Public Class Line3d
     ''' <param name="p1">First point.</param>
     ''' <param name="p2">Second point.</param>
     Public Sub New(ByVal p1 As Point3d, ByVal p2 As Point3d)
-        _point = p1.Clone
+        _point = DirectCast(p1.Clone, Point3d)
         _dir = New Vector3d(p1, p2)
     End Sub
 #End Region
@@ -40,8 +40,8 @@ Public Class Line3d
 
     Public Function Clone() As Object Implements ICloneable.Clone
         Dim newobj As Line3d = DirectCast(MemberwiseClone(), Line3d)
-        newobj.Point = newobj.Point.Clone
-        newobj.Direction = newobj.Direction.Clone
+        newobj.Point = DirectCast(newobj.Point.Clone, Point3d)
+        newobj.Direction = DirectCast(newobj.Direction.Clone, Vector3d)
         Return newobj
     End Function
 
@@ -51,10 +51,10 @@ Public Class Line3d
     ''' <returns></returns>
     Public Property Point As Point3d
         Get
-            Return _point.Clone
+            Return DirectCast(_point.Clone, Point3d)
         End Get
         Set(value As Point3d)
-            _point = value.Clone
+            _point = DirectCast(value.Clone, Point3d)
         End Set
     End Property
 
@@ -64,10 +64,10 @@ Public Class Line3d
     ''' <returns></returns>
     Public Property Direction As Vector3d
         Get
-            Return _dir.Clone
+            Return DirectCast(_dir.Clone, Vector3d)
         End Get
         Set(value As Vector3d)
-            _dir = value.Clone
+            _dir = DirectCast(value.Clone, Vector3d)
         End Set
     End Property
 
@@ -215,7 +215,7 @@ Public Class Line3d
     ''' Translate line by a vector
     ''' </summary>
     Public Overridable Function Translate(v As Vector3d) As Line3d
-        Dim l As Line3d = Me.Clone
+        Dim l As Line3d = DirectCast(Me.Clone, Line3d)
         l.Point = l.Point.Translate(v)
         Return l
     End Function
@@ -224,7 +224,7 @@ Public Class Line3d
     ''' Rotate line by a given rotation matrix
     ''' </summary>
     Public Overridable Function Rotate(ByVal m As Matrix3d) As Line3d
-        Dim l As Line3d = Me.Clone
+        Dim l As Line3d = DirectCast(Me.Clone, Line3d)
         l.Point = l.Point.Rotate(m)
         l.Direction = l.Direction.Rotate(m)
         Return l
@@ -234,7 +234,7 @@ Public Class Line3d
     ''' Rotate line by a given rotation matrix around point 'p' as a rotation center
     ''' </summary>
     Public Overridable Function Rotate(m As Matrix3d, p As Point3d) As Line3d
-        Dim l As Line3d = Me.Clone
+        Dim l As Line3d = DirectCast(Me.Clone, Line3d)
         l.Point = l.Point.Rotate(m, p)
         l.Direction = l.Direction.Rotate(m)
         Return l

@@ -8,32 +8,32 @@ Public Class Segment3d
     Private _p2 As Point3d
 
     Sub New(p1 As Point3d, p2 As Point3d)
-        _p1 = p1.Clone
+        _p1 = DirectCast(p1.Clone, Point3d)
         _p2 = p2.ConvertTo(p1.Coord)
     End Sub
 
     Public Function Clone() As Object Implements ICloneable.Clone
         Dim newobj As Segment3d = DirectCast(MemberwiseClone(), Segment3d)
-        newobj.P1 = newobj.P1.Clone
-        newobj.P2 = newobj.P2.Clone
+        newobj.P1 = DirectCast(newobj.P1.Clone, Point3d)
+        newobj.P2 = DirectCast(newobj.P2.Clone, Point3d)
         Return newobj
     End Function
 
     Public Property P1 As Point3d
         Get
-            Return _p1.Clone
+            Return DirectCast(_p1.Clone, Point3d)
         End Get
         Set(value As Point3d)
-            _p1 = value.Clone
+            _p1 = DirectCast(value.Clone, Point3d)
         End Set
     End Property
 
     Public Property P2 As Point3d
         Get
-            Return _p2.Clone
+            Return DirectCast(_p2.Clone, Point3d)
         End Get
         Set(value As Point3d)
-            _p2 = value.Clone
+            _p2 = DirectCast(value.Clone, Point3d)
         End Set
     End Property
 

@@ -8,7 +8,7 @@ Public Class Sphere
     Private _r As Double
 
     Public Sub New(P As Point3d, R As Double)
-        _point = P.Clone
+        _point = DirectCast(P.Clone, Point3d)
         _r = R
     End Sub
 
@@ -16,7 +16,7 @@ Public Class Sphere
 
     Public Function Clone() As Object Implements ICloneable.Clone
         Dim newobj As Sphere = DirectCast(MemberwiseClone(), Sphere)
-        newobj.Center = newobj.Center.Clone
+        newobj.Center = DirectCast(newobj.Center.Clone, Point3d)
         Return newobj
     End Function
 
@@ -26,10 +26,10 @@ Public Class Sphere
     ''' </summary>
     Public Property Center As Point3d
         Get
-            Return _point.Clone
+            Return DirectCast(_point.Clone, Point3d)
         End Get
         Set(value As Point3d)
-            _point = value.Clone
+            _point = DirectCast(value.Clone, Point3d)
         End Set
     End Property
 

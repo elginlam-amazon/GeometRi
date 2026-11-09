@@ -167,7 +167,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim l1 As Line3d = New Line3d(p1, v1)
         Dim s1 As Plane3d = New Plane3d(-2, 2, 3, -29)
 
-        Assert.IsTrue(l1.IntersectionWith(s1) = New Point3d(-3, 1, 7))
+        Assert.IsTrue(DirectCast(l1.IntersectionWith(s1), Point3d) = New Point3d(-3, 1, 7))
     End Sub
 
     <TestMethod()> Public Sub LineIntersectionWithPlaneTest2()
@@ -179,7 +179,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim p2 As Point3d = New Point3d(0, 0, 2)
         Dim l1 As Line3d = New Line3d(p1, New Vector3d(p1, p2))
 
-        Assert.IsTrue(l1.IntersectionWith(s1) = Nothing)
+        Assert.IsTrue(l1.IntersectionWith(s1) Is Nothing)
     End Sub
 
     <TestMethod()> Public Sub LineIntersectionWithPlaneTest3()
@@ -191,7 +191,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim p2 As Point3d = New Point3d(0, 0, 1)
         Dim l1 As Line3d = New Line3d(p1, New Vector3d(p1, p2))
 
-        Assert.IsTrue(l1.IntersectionWith(s1) = l1)
+        Assert.IsTrue(DirectCast(l1.IntersectionWith(s1), Line3d) = l1)
     End Sub
 
     <TestMethod()> Public Sub LineProjectionToPlaneTest()
@@ -200,8 +200,8 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim l1 As Line3d = New Line3d(p1, v1)
         Dim s1 As Plane3d = New Plane3d(-2, 2, 3, -29)
 
-        Dim p2 As Point3d = l1.IntersectionWith(s1)
-        Dim l2 As Line3d = l1.ProjectionTo(s1)
+        Dim p2 As Point3d = DirectCast(l1.IntersectionWith(s1), Point3d)
+        Dim l2 As Line3d = DirectCast(l1.ProjectionTo(s1), Line3d)
 
         Assert.IsTrue(p2.BelongsTo(l2))
     End Sub
@@ -225,7 +225,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     <TestMethod()> Public Sub RayIntersectionWithPlaneTest()
         Dim s As Plane3d = New Plane3d(0, 0, 1, 0)
         Dim r As Ray3d = New Ray3d(New Point3d(-1, -1, -1), New Vector3d(1, 1, 1))
-        Assert.IsTrue(r.IntersectionWith(s) = New Point3d(0, 0, 0))
+        Assert.IsTrue(DirectCast(r.IntersectionWith(s), Point3d) = New Point3d(0, 0, 0))
     End Sub
 
     <TestMethod()> Public Sub RayIntersectionWithPlaneTest2()
@@ -237,7 +237,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     <TestMethod()> Public Sub RayProjectionToPlaneTest()
         Dim s As Plane3d = New Plane3d(0, 0, 1, 0)
         Dim r As Ray3d = New Ray3d(New Point3d(1, 1, 1), New Vector3d(1, 1, 1))
-        Assert.IsTrue(r.ProjectionTo(s) = New Ray3d(New Point3d(1, 1, 0), New Vector3d(1, 1, 0)))
+        Assert.IsTrue(DirectCast(r.ProjectionTo(s), Ray3d) = New Ray3d(New Point3d(1, 1, 0), New Vector3d(1, 1, 0)))
     End Sub
 
     <TestMethod()> Public Sub RayDistanceToRayTest()
@@ -259,19 +259,19 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     <TestMethod()> Public Sub SegmentProjectionToLineTest()
         Dim l As Line3d = New Line3d(New Point3d(1, 1, 1), New Vector3d(0, 0, 1))
         Dim r As Segment3d = New Segment3d(New Point3d(-1, -3, -2), New Point3d(-5, 1, -3))
-        Assert.IsTrue(r.ProjectionTo(l) = New Segment3d(New Point3d(1, 1, -2), New Point3d(1, 1, -3)))
+        Assert.IsTrue(DirectCast(r.ProjectionTo(l), Segment3d) = New Segment3d(New Point3d(1, 1, -2), New Point3d(1, 1, -3)))
     End Sub
 
     <TestMethod()> Public Sub SegmentProjectionToLineTest2()
         Dim l As Line3d = New Line3d(New Point3d(1, 1, 1), New Vector3d(0, 0, 1))
         Dim r As Segment3d = New Segment3d(New Point3d(-1, -3, -2), New Point3d(-5, 1, -2))
-        Assert.IsTrue(r.ProjectionTo(l) = New Point3d(1, 1, -2))
+        Assert.IsTrue(DirectCast(r.ProjectionTo(l), Point3d) = New Point3d(1, 1, -2))
     End Sub
 
     <TestMethod()> Public Sub SegmentProjectionToPlaneTest()
         Dim s As Plane3d = New Plane3d(0, 0, 1, -1)
         Dim r As Segment3d = New Segment3d(New Point3d(-1, -3, -2), New Point3d(-5, 1, -3))
-        Assert.IsTrue(r.ProjectionTo(s) = New Segment3d(New Point3d(-1, -3, 1), New Point3d(-5, 1, 1)))
+        Assert.IsTrue(DirectCast(r.ProjectionTo(s), Segment3d) = New Segment3d(New Point3d(-1, -3, 1), New Point3d(-5, 1, 1)))
     End Sub
 
     <TestMethod()> Public Sub SegmentIntersectionWithPlaneTest()
@@ -383,7 +383,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim l1 As Line3d = New Line3d(p1, v1)
         Dim s1 As Plane3d = New Plane3d(-2, 2, 3, -29)
 
-        Assert.IsTrue(s1.IntersectionWith(l1) = New Point3d(-3, 1, 7))
+        Assert.IsTrue(DirectCast(s1.IntersectionWith(l1), Point3d) = New Point3d(-3, 1, 7))
     End Sub
 
     <TestMethod()> Public Sub PlaneIntersectionWithLineTest2()
@@ -395,7 +395,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim p2 As Point3d = New Point3d(0, 0, 2)
         Dim l1 As Line3d = New Line3d(p1, New Vector3d(p1, p2))
 
-        Assert.IsTrue(s1.IntersectionWith(l1) = Nothing)
+        Assert.IsTrue(s1.IntersectionWith(l1) Is Nothing)
     End Sub
 
     <TestMethod()> Public Sub PlaneIntersectionWithLineTest3()
@@ -407,7 +407,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim p2 As Point3d = New Point3d(0, 0, 1)
         Dim l1 As Line3d = New Line3d(p1, New Vector3d(p1, p2))
 
-        Assert.IsTrue(s1.IntersectionWith(l1) = l1)
+        Assert.IsTrue(DirectCast(s1.IntersectionWith(l1), Line3d) = l1)
     End Sub
 
     '===============================================================
@@ -421,7 +421,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim s2 As Plane3d = New Plane3d(New Point3d(2, 0, 1), New Vector3d(1, 1, 1))
         Dim s3 As Plane3d = New Plane3d(New Point3d(0, 3, 1), New Vector3d(-1, -1, -1))
 
-        Assert.IsTrue(s1.IntersectionWith(s2, s3) = Nothing)
+        Assert.IsTrue(s1.IntersectionWith(s2, s3) Is Nothing)
     End Sub
 
     <TestMethod()> Public Sub PlaneIntersectionWithTwoPlanesTest2()
@@ -431,7 +431,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim s2 As Plane3d = New Plane3d(New Point3d(2, 0, 1), New Vector3d(1, 1, 1))
         Dim s3 As Plane3d = New Plane3d(New Point3d(1, 0, 0), New Vector3d(-1, -1, -1))
 
-        Assert.IsTrue(s1.IntersectionWith(s2, s3) = Nothing)
+        Assert.IsTrue(s1.IntersectionWith(s2, s3) Is Nothing)
     End Sub
 
     <TestMethod()> Public Sub PlaneIntersectionWithTwoPlanesTest3()
@@ -441,7 +441,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim s2 As Plane3d = New Plane3d(New Point3d(0, 1, 0), New Vector3d(1, 1, 1))
         Dim s3 As Plane3d = New Plane3d(New Point3d(1, 0, 0), New Vector3d(-1, -1, -1))
 
-        Assert.IsTrue(s1.IntersectionWith(s2, s3) = s1)
+        Assert.IsTrue(DirectCast(s1.IntersectionWith(s2, s3), Plane3d) = s1)
     End Sub
 
     <TestMethod()> Public Sub PlaneIntersectionWithTwoPlanesTest4()
@@ -468,7 +468,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
         Dim obj As Object = s1.IntersectionWith(s2, s3)
 
-        Assert.IsTrue(obj = Nothing)
+        Assert.IsTrue(obj Is Nothing)
     End Sub
 
     <TestMethod()> Public Sub PlaneIntersectionWithTwoPlanesTest6()
@@ -491,7 +491,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim s1 As Plane3d = New Plane3d(New Point3d(0, 0, 1), New Vector3d(0, 1, 1))
         Dim s2 As Plane3d = New Plane3d(-5, 2, 4, 1)
         Dim s3 As Plane3d = New Plane3d(2, -3, 2, 4)
-        Assert.IsTrue(s1.IntersectionWith(s2, s3) = s1.IntersectionWith(s2.IntersectionWith(s3)))
+        Assert.IsTrue(DirectCast(s1.IntersectionWith(s2, s3), Point3d) = DirectCast(s1.IntersectionWith(DirectCast(s2.IntersectionWith(s3), Line3d)), Point3d))
     End Sub
 
     '===============================================================
@@ -608,7 +608,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim s2 As Plane3d = New Plane3d(-5, 2, 4, 1)
         Dim s3 As Plane3d = New Plane3d(2, -3, 2, 4)
         GeometRi3D.Tolerance = 0
-        Assert.IsFalse(s1.IntersectionWith(s2, s3) = s1.IntersectionWith(s2.IntersectionWith(s3)))
+        Assert.IsFalse(DirectCast(s1.IntersectionWith(s2, s3), Point3d) = DirectCast(s1.IntersectionWith(DirectCast(s2.IntersectionWith(s3), Line3d)), Point3d))
         GeometRi3D.Tolerance = 0.000000000001
     End Sub
 
@@ -626,8 +626,8 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     '===============================================================
 
     <TestMethod()> Public Sub PointConvertToTest()
-        Dim coord1 As Coord3d = Coord3d.GlobalCS.Clone
-        Dim coord2 As Coord3d = Coord3d.GlobalCS.Clone
+        Dim coord1 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
+        Dim coord2 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
         coord2.RotateDeg(New Vector3d(1, 1, 1), 120)
 
         Assert.IsTrue(New Point3d(1, 2, 3, coord1) = New Point3d(2, 3, 1, coord2))
@@ -644,8 +644,8 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod()> Public Sub PointConvertToGlobalTest()
-        Dim coord1 As Coord3d = Coord3d.GlobalCS.Clone
-        Dim coord2 As Coord3d = Coord3d.GlobalCS.Clone
+        Dim coord1 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
+        Dim coord2 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
         coord2.RotateDeg(New Vector3d(1, 1, 1), 120)
 
         Dim p1 As Point3d = New Point3d(1, 2, 3, coord1)
@@ -657,16 +657,16 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod()> Public Sub VectorConvertToTest()
-        Dim coord1 As Coord3d = Coord3d.GlobalCS.Clone
-        Dim coord2 As Coord3d = Coord3d.GlobalCS.Clone
+        Dim coord1 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
+        Dim coord2 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
         coord2.RotateDeg(New Vector3d(1, 1, 1), 120)
 
         Assert.IsTrue(New Vector3d(1, 2, 3, coord1) = New Vector3d(2, 3, 1, coord2))
     End Sub
 
     <TestMethod()> Public Sub VectorConvertToTest2()
-        Dim coord1 As Coord3d = Coord3d.GlobalCS.Clone
-        Dim coord2 As Coord3d = Coord3d.GlobalCS.Clone
+        Dim coord1 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
+        Dim coord2 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
         coord2.RotateDeg(New Vector3d(1, 1, 1), 120)
 
         Dim v1 As Vector3d = New Vector3d(2, 3, 4)
@@ -677,8 +677,8 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod()> Public Sub LineConvertToTest()
-        Dim coord1 As Coord3d = Coord3d.GlobalCS.Clone
-        Dim coord2 As Coord3d = Coord3d.GlobalCS.Clone
+        Dim coord1 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
+        Dim coord2 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
         coord2.RotateDeg(New Vector3d(1, 1, 1), 120)
 
         Dim p1 As Point3d = New Point3d(1, 2, 3, coord1)
@@ -688,12 +688,12 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim s1 As Plane3d = coord2.XZ_plane
         s1.Point = s1.Point.ConvertTo(coord1)
 
-        Assert.IsTrue(l1.IntersectionWith(s1) = New Point3d(1, 2, 0))
+        Assert.IsTrue(DirectCast(l1.IntersectionWith(s1), Point3d) = New Point3d(1, 2, 0))
     End Sub
 
     <TestMethod()> Public Sub PlaneConvertToTest()
-        Dim coord1 As Coord3d = Coord3d.GlobalCS.Clone
-        Dim coord2 As Coord3d = Coord3d.GlobalCS.Clone
+        Dim coord1 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
+        Dim coord2 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
         coord2.RotateDeg(New Vector3d(1, 1, 1), 120)
 
         Dim p1 As Point3d = New Point3d(1, 2, 3, coord1)
@@ -703,12 +703,12 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim s1 As Plane3d = coord2.XZ_plane
         s1.Point = s1.Point.ConvertTo(coord1)
 
-        Assert.IsTrue(s1.IntersectionWith(l1) = New Point3d(1, 2, 0))
+        Assert.IsTrue(DirectCast(s1.IntersectionWith(l1), Point3d) = New Point3d(1, 2, 0))
     End Sub
 
     <TestMethod()> Public Sub LineConvertProjectionToPlaneTest()
-        Dim coord1 As Coord3d = Coord3d.GlobalCS.Clone
-        Dim coord2 As Coord3d = Coord3d.GlobalCS.Clone
+        Dim coord1 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
+        Dim coord2 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
         coord2.RotateDeg(New Vector3d(1, 1, 1), 120)
 
         Dim p1 As Point3d = New Point3d(1, 2, 3, coord1)
@@ -718,12 +718,12 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim s1 As Plane3d = coord2.XZ_plane
         s1.Point = s1.Point.ConvertTo(coord1)
 
-        Assert.IsTrue(l1.ProjectionTo(s1) = New Point3d(1, 2, 0))
+        Assert.IsTrue(DirectCast(l1.ProjectionTo(s1), Point3d) = New Point3d(1, 2, 0))
     End Sub
 
     <TestMethod()> Public Sub LineConvertProjectionToPlaneTest2()
-        Dim coord1 As Coord3d = Coord3d.GlobalCS.Clone
-        Dim coord2 As Coord3d = Coord3d.GlobalCS.Clone
+        Dim coord1 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
+        Dim coord2 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
         coord2.RotateDeg(New Vector3d(1, 1, 1), 120)
 
         Dim p1 As Point3d = New Point3d(1, 2, 3, coord1)
@@ -733,12 +733,12 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim s1 As Plane3d = coord2.XZ_plane
         s1.Point = s1.Point.ConvertTo(coord1)
 
-        Assert.IsTrue(l1.ProjectionTo(s1) = New Line3d(New Point3d(1, 2, 0), New Vector3d(0, 1, 0)))
+        Assert.IsTrue(DirectCast(l1.ProjectionTo(s1), Line3d) = New Line3d(New Point3d(1, 2, 0), New Vector3d(0, 1, 0)))
     End Sub
 
     <TestMethod()> Public Sub PlaneConvertIntersectionToPlaneTest()
-        Dim coord1 As Coord3d = Coord3d.GlobalCS.Clone
-        Dim coord2 As Coord3d = Coord3d.GlobalCS.Clone
+        Dim coord1 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
+        Dim coord2 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
         coord1.RotateDeg(New Vector3d(1, 1, 1), 90)
         coord2.RotateDeg(New Vector3d(1, 1, 1), 120)
 
@@ -748,12 +748,12 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim s3 As Plane3d = New Plane3d(100, -1000, 1, 0, coord2)
 
 
-        Assert.IsTrue(s1.IntersectionWith(s2, s3) = New Point3d(0, 0, 0))
+        Assert.IsTrue(DirectCast(s1.IntersectionWith(s2, s3), Point3d) = New Point3d(0, 0, 0))
     End Sub
 
     <TestMethod()> Public Sub PlaneConvertToGlobalTest()
-        Dim coord1 As Coord3d = Coord3d.GlobalCS.Clone
-        Dim coord2 As Coord3d = Coord3d.GlobalCS.Clone
+        Dim coord1 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
+        Dim coord2 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
         coord1.RotateDeg(New Vector3d(1, 1, 1), 90)
         coord2.RotateDeg(New Vector3d(1, 1, 1), 120)
         coord1.Origin = New Point3d(1, 1, 1)
@@ -768,8 +768,8 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod()> Public Sub PlaneIntersectionWithPlanesTest()
-        Dim coord1 As Coord3d = Coord3d.GlobalCS.Clone
-        Dim coord2 As Coord3d = Coord3d.GlobalCS.Clone
+        Dim coord1 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
+        Dim coord2 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
         coord1.RotateDeg(New Vector3d(1, 2, 3), 90)
         coord2.RotateDeg(New Vector3d(1, 1, 1), 120)
         coord1.Origin = New Point3d(1, 1, 1)
@@ -778,11 +778,11 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim s1 As Plane3d = New Plane3d(1, 1, 1, 0, Coord3d.GlobalCS)
         Dim s2 As Plane3d = New Plane3d(3, -2, 0, 9, Coord3d.GlobalCS)
         Dim s3 As Plane3d = New Plane3d(2, 5, 1, -2, Coord3d.GlobalCS)
-        Dim p1 As Point3d = s1.IntersectionWith(s2, s3)
+        Dim p1 As Point3d = DirectCast(s1.IntersectionWith(s2, s3), Point3d)
         s1.Point = s1.Point.ConvertTo(coord2)
         s2.Normal = s2.Normal.ConvertTo(coord1).ConvertTo(coord2)
         s3.Point = s3.Point.ConvertTo(coord2).ConvertTo(coord1)
-        Dim p2 As Point3d = s2.IntersectionWith(s1, s3)
+        Dim p2 As Point3d = DirectCast(s2.IntersectionWith(s1, s3), Point3d)
 
         Assert.IsTrue(p1 = p2)
     End Sub
@@ -792,7 +792,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     '===============================================================
 
     <TestMethod()> Public Sub TranslatePointTest1()
-        Dim coord1 As Coord3d = Coord3d.GlobalCS.Clone
+        Dim coord1 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
         coord1.RotateDeg(New Vector3d(0, 0, 1), 90)
         coord1.Origin = New Point3d(1, 1, 1)
 
@@ -803,8 +803,8 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod()> Public Sub TranslatePointTest()
-        Dim coord1 As Coord3d = Coord3d.GlobalCS.Clone
-        Dim coord2 As Coord3d = Coord3d.GlobalCS.Clone
+        Dim coord1 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
+        Dim coord2 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
         coord1.RotateDeg(New Vector3d(1, 2, 3), 90)
         coord2.RotateDeg(New Vector3d(1, 1, 1), 120)
         coord1.Origin = New Point3d(1, 1, 1)
@@ -823,8 +823,8 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
 
     <TestMethod()> Public Sub TranslatePlaneTest()
-        Dim coord1 As Coord3d = Coord3d.GlobalCS.Clone
-        Dim coord2 As Coord3d = Coord3d.GlobalCS.Clone
+        Dim coord1 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
+        Dim coord2 As Coord3d = DirectCast(Coord3d.GlobalCS.Clone, Coord3d)
         coord1.RotateDeg(New Vector3d(1, 2, 3), 90)
         coord2.RotateDeg(New Vector3d(1, 1, 1), 120)
         coord1.Origin = New Point3d(1, 1, 1)
@@ -978,23 +978,23 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim l As Line3d = New Line3d(New Point3d(5, 0, -6), New Vector3d(1, 0, 0))
         Dim s As Sphere = New Sphere(New Point3d(0, 0, 0), 5)
 
-        Assert.IsTrue(s.IntersectionWith(l) = Nothing)
+        Assert.IsTrue(s.IntersectionWith(l) Is Nothing)
 
         l.Point = New Point3d(5, 0, -5)
-        Assert.IsTrue(s.IntersectionWith(l) = New Point3d(0, 0, -5))
+        Assert.IsTrue(DirectCast(s.IntersectionWith(l), Point3d) = New Point3d(0, 0, -5))
 
         l.Point = New Point3d(0, 0, 0)
         l.Direction = New Vector3d(1, 0, 0)
-        Assert.IsTrue(s.IntersectionWith(l) = New Segment3d(New Point3d(-5, 0, 0), New Point3d(5, 0, 0)))
+        Assert.IsTrue(DirectCast(s.IntersectionWith(l), Segment3d) = New Segment3d(New Point3d(-5, 0, 0), New Point3d(5, 0, 0)))
 
         l.Direction = New Vector3d(1, 3, 4)
-        Assert.IsTrue(s.IntersectionWith(l).Length = 10)
+        Assert.IsTrue(DirectCast(s.IntersectionWith(l), Segment3d).Length = 10)
     End Sub
 
     <TestMethod()> Public Sub SphereIntersectionWithPlaneTest()
         Dim s As New Sphere(New Point3d(1, -1, 3), 3)
         Dim p As New Plane3d(1, 4, 5, 6)
-        Dim c As Circle3d = s.IntersectionWith(p)
+        Dim c As Circle3d = DirectCast(s.IntersectionWith(p), Circle3d)
         Assert.IsTrue(Abs(c.R - 1.13) < 0.005)
         Assert.IsTrue(c.Center.DistanceTo(New Point3d(0.57, -2.71, 0.86)) < 0.01)
     End Sub
@@ -1002,11 +1002,11 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     <TestMethod()> Public Sub SphereIntersectionWithSphereTest()
         Dim s1 As Sphere = New Sphere(New Point3d(-2, 2, 4), 5)
         Dim s2 As Sphere = New Sphere(New Point3d(3, 7, 3), 5)
-        Dim c1 As Circle3d = s1.IntersectionWith(s2)
+        Dim c1 As Circle3d = DirectCast(s1.IntersectionWith(s2), Circle3d)
         Assert.IsTrue(Abs(c1.R - 3.5) < GeometRi3D.Tolerance)
         Assert.IsTrue(c1.Center = New Point3d(0.5, 4.5, 3.5))
 
-        Dim c2 As Circle3d = s2.IntersectionWith(s1)
+        Dim c2 As Circle3d = DirectCast(s2.IntersectionWith(s1), Circle3d)
         Assert.IsTrue(c1 = c2)
     End Sub
 

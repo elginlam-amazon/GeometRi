@@ -12,37 +12,37 @@ Public Class Ellipse
         If (Not semiaxis_a.IsOrthogonalTo(semiaxis_b)) Then
             Throw New Exception("Semiaxes are not orthogonal")
         End If
-        _point = Center.Clone
+        _point = DirectCast(Center.Clone, Point3d)
         If semiaxis_a.Norm >= semiaxis_b.Norm Then
-            _v1 = semiaxis_a.Clone
-            _v2 = semiaxis_b.Clone
+            _v1 = DirectCast(semiaxis_a.Clone, Vector3d)
+            _v2 = DirectCast(semiaxis_b.Clone, Vector3d)
         Else
-            _v1 = semiaxis_b.Clone
-            _v2 = semiaxis_a.Clone
+            _v1 = DirectCast(semiaxis_b.Clone, Vector3d)
+            _v2 = DirectCast(semiaxis_a.Clone, Vector3d)
         End If
 
     End Sub
 
     Public Function Clone() As Object Implements ICloneable.Clone
-        Return New Ellipse(_point.Clone, _v1.Clone, _v2.Clone)
+        Return New Ellipse(DirectCast(_point.Clone, Point3d), DirectCast(_v1.Clone, Vector3d), DirectCast(_v2.Clone, Vector3d))
     End Function
 
 #Region "Properties"
     Public ReadOnly Property Center As Point3d
         Get
-            Return _point.Clone
+            Return DirectCast(_point.Clone, Point3d)
         End Get
     End Property
 
     Public ReadOnly Property MajorSemiaxis As Vector3d
         Get
-            Return _v1.Clone
+            Return DirectCast(_v1.Clone, Vector3d)
         End Get
     End Property
 
     Public ReadOnly Property MinorSemiaxis As Vector3d
         Get
-            Return _v2.Clone
+            Return DirectCast(_v2.Clone, Vector3d)
         End Get
     End Property
 
@@ -169,7 +169,7 @@ Public Class Ellipse
                 Return Nothing
             End If
         Else
-            Dim l As Line3d = s.IntersectionWith(New Plane3d(Me.Center, Me.Normal))
+            Dim l As Line3d = DirectCast(s.IntersectionWith(New Plane3d(Me.Center, Me.Normal)), Line3d)
             Dim local_coord As Coord3d = New Coord3d(Me.Center, Me._v1, Me._v2)
             Dim p As Point3d = l.Point.ConvertTo(local_coord)
             Dim v As Vector3d = l.Direction.ConvertTo(local_coord)

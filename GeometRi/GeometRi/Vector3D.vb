@@ -57,7 +57,7 @@ Public Class Vector3d
 
     Public Function Clone() As Object Implements ICloneable.Clone
         Dim newvec As Vector3d = DirectCast(MemberwiseClone(), Vector3d)
-        newvec.val = newvec.val.Clone
+        newvec.val = DirectCast(newvec.val.Clone, Double())
         Return newvec
     End Function
 
@@ -147,7 +147,7 @@ Public Class Vector3d
     ''' Return normalized vector
     ''' </summary>
     Public Function Normalized() As Vector3d
-        Dim tmp As Vector3d = Me.Clone
+        Dim tmp As Vector3d = DirectCast(Me.Clone, Vector3d)
         Dim tmp_norm As Double = Me.Norm
         tmp.val(0) = val(0) / tmp_norm
         tmp.val(1) = val(1) / tmp_norm
@@ -180,7 +180,7 @@ Public Class Vector3d
     End Function
 
     Public Function Add(ByVal a As Double) As Vector3d
-        Dim tmp As Vector3d = Me.Clone
+        Dim tmp As Vector3d = DirectCast(Me.Clone, Vector3d)
         tmp.val(0) += a
         tmp.val(1) += a
         tmp.val(2) += a
@@ -188,14 +188,14 @@ Public Class Vector3d
     End Function
     Public Function Add(ByVal v As Vector3d) As Vector3d
         If (Me._coord <> v._coord) Then v = v.ConvertTo(Me._coord)
-        Dim tmp As Vector3d = Me.Clone
+        Dim tmp As Vector3d = DirectCast(Me.Clone, Vector3d)
         tmp.val(0) += v.X
         tmp.val(1) += v.Y
         tmp.val(2) += v.Z
         Return tmp
     End Function
     Public Function Subtract(ByVal a As Double) As Vector3d
-        Dim tmp As Vector3d = Me.Clone
+        Dim tmp As Vector3d = DirectCast(Me.Clone, Vector3d)
         tmp.val(0) -= a
         tmp.val(1) -= a
         tmp.val(2) -= a
@@ -203,14 +203,14 @@ Public Class Vector3d
     End Function
     Public Function Subtract(ByVal v As Vector3d) As Vector3d
         If (Me._coord <> v._coord) Then v = v.ConvertTo(Me._coord)
-        Dim tmp As Vector3d = Me.Clone
+        Dim tmp As Vector3d = DirectCast(Me.Clone, Vector3d)
         tmp.val(0) -= v.X
         tmp.val(1) -= v.Y
         tmp.val(2) -= v.Z
         Return tmp
     End Function
     Public Function Mult(ByVal a As Double) As Vector3d
-        Dim tmp As Vector3d = Me.Clone
+        Dim tmp As Vector3d = DirectCast(Me.Clone, Vector3d)
         tmp.val(0) *= a
         tmp.val(1) *= a
         tmp.val(2) *= a
@@ -241,7 +241,7 @@ Public Class Vector3d
     ''' Convert vector to local coordinate system.
     ''' </summary>
     Public Function ConvertTo(ByVal coord As Coord3d) As Vector3d
-        Dim v1 As Vector3d = Me.Clone
+        Dim v1 As Vector3d = DirectCast(Me.Clone, Vector3d)
         v1 = v1.ConvertToGlobal()
         If coord IsNot Nothing AndAlso coord IsNot Coord3d.GlobalCS Then
             v1 = coord.Axes * v1
@@ -257,7 +257,7 @@ Public Class Vector3d
         If _coord Is Nothing OrElse _coord Is Coord3d.GlobalCS Then
             Return Me
         Else
-            Dim v As Vector3d = Me.Clone
+            Dim v As Vector3d = DirectCast(Me.Clone, Vector3d)
             v = _coord.Axes.Inverse * v
             v._coord = Coord3d.GlobalCS
             Return v
@@ -410,7 +410,7 @@ Public Class Vector3d
     End Function
 
     Public Overrides Function GetHashCode() As Integer
-        Return GeometRi3D.HashFunction(val(0), val(1), val(2), _coord.GetHashCode)
+        Return GeometRi3D.HashFunction(CInt(val(0)), CInt(val(1)), CInt(val(2)), _coord.GetHashCode)
     End Function
 
     Public Overloads Function ToString(Optional coord As Coord3d = Nothing) As String

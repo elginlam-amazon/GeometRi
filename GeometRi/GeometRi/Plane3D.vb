@@ -49,7 +49,7 @@ Public Class Plane3d
         Dim v1 As Vector3d = New Vector3d(p1, p2)
         Dim v2 As Vector3d = New Vector3d(p1, p3)
         _normal = v1.Cross(v2)
-        _point = p1.Clone
+        _point = DirectCast(p1.Clone, Point3d)
     End Sub
 
     ''' <summary>
@@ -57,7 +57,7 @@ Public Class Plane3d
     ''' </summary>
     Public Sub New(p1 As Point3d, v1 As Vector3d, v2 As Vector3d)
         _normal = v1.Cross(v2)
-        _point = p1.Clone
+        _point = DirectCast(p1.Clone, Point3d)
     End Sub
 
     ''' <summary>
@@ -66,16 +66,16 @@ Public Class Plane3d
     ''' <param name="p1"></param>
     ''' <param name="v1"></param>
     Public Sub New(p1 As Point3d, v1 As Vector3d)
-        _normal = v1.Clone
-        _point = p1.Clone
+        _normal = DirectCast(v1.Clone, Vector3d)
+        _point = DirectCast(p1.Clone, Point3d)
     End Sub
 #End Region
 
 
     Public Function Clone() As Object Implements ICloneable.Clone
         Dim newobj As Plane3d = DirectCast(MemberwiseClone(), Plane3d)
-        newobj.Point = newobj.Point.Clone
-        newobj.Normal = newobj.Normal.Clone
+        newobj.Point = DirectCast(newobj.Point.Clone, Point3d)
+        newobj.Normal = DirectCast(newobj.Normal.Clone, Vector3d)
         Return newobj
     End Function
 
@@ -85,10 +85,10 @@ Public Class Plane3d
     ''' <returns></returns>
     Public Property Point As Point3d
         Get
-            Return _point.Clone
+            Return DirectCast(_point.Clone, Point3d)
         End Get
         Set(value As Point3d)
-            _point = value.Clone
+            _point = DirectCast(value.Clone, Point3d)
         End Set
     End Property
 
@@ -98,10 +98,10 @@ Public Class Plane3d
     ''' <returns></returns>
     Public Property Normal As Vector3d
         Get
-            Return _normal.Clone
+            Return DirectCast(_normal.Clone, Vector3d)
         End Get
         Set(value As Vector3d)
-            _normal = value.Clone
+            _normal = DirectCast(value.Clone, Vector3d)
         End Set
     End Property
 
@@ -196,8 +196,8 @@ Public Class Plane3d
             If Me.Normal.IsNotParallelTo(s2.Normal) AndAlso Me.Normal.IsNotParallelTo(s3.Normal) Then
                 ' Planes are not parallel
                 ' Find the intersection (Me,s2) and (Me,s3) and check if it is the same line
-                Dim l1 As Line3d = Me.IntersectionWith(s2)
-                Dim l2 As Line3d = Me.IntersectionWith(s3)
+                Dim l1 As Line3d = DirectCast(Me.IntersectionWith(s2), Line3d)
+                Dim l2 As Line3d = DirectCast(Me.IntersectionWith(s3), Line3d)
                 If l1 = l2 Then
                     Return l1
                 Else
@@ -235,13 +235,13 @@ Public Class Plane3d
             ' (using the 'most orthogonal' plane)
             ' This part needs to be rewritten
             If Abs(v.X) > Abs(v.Y) AndAlso Abs(v.X) > Abs(v.Z) Then
-                Dim p As Point3d = Me.IntersectionWith(s2, Coord3d.GlobalCS.YZ_plane)
+                Dim p As Point3d = DirectCast(Me.IntersectionWith(s2, Coord3d.GlobalCS.YZ_plane), Point3d)
                 Return New Line3d(p, v)
             ElseIf Abs(v.Y) > Abs(v.X) AndAlso Abs(v.Y) > Abs(v.Z) Then
-                Dim p As Point3d = Me.IntersectionWith(s2, Coord3d.GlobalCS.XZ_plane)
+                Dim p As Point3d = DirectCast(Me.IntersectionWith(s2, Coord3d.GlobalCS.XZ_plane), Point3d)
                 Return New Line3d(p, v)
             Else
-                Dim p As Point3d = Me.IntersectionWith(s2, Coord3d.GlobalCS.XY_plane)
+                Dim p As Point3d = DirectCast(Me.IntersectionWith(s2, Coord3d.GlobalCS.XY_plane), Point3d)
                 Return New Line3d(p, v)
             End If
         End If
@@ -251,7 +251,7 @@ Public Class Plane3d
     ''' Get intersection of plane with sphere.
     ''' Returns object of type 'Nothing', 'Point3d' or 'Circle3d'.
     ''' </summary>
-    Public Function IntersectionWith(s As Sphere)
+    Public Function IntersectionWith(s As Sphere) As Object
         Return s.IntersectionWith(Me)
     End Function
 
@@ -259,7 +259,7 @@ Public Class Plane3d
     ''' Intersection of circle with plane.
     ''' Returns object of type 'Nothing', 'Circle3d', 'Point3d' or 'Segment3d'.
     ''' </summary>
-    Public Function IntersectionWith(c As Circle3d)
+    Public Function IntersectionWith(c As Circle3d) As Object
         Return c.IntersectionWith(Me)
     End Function
 

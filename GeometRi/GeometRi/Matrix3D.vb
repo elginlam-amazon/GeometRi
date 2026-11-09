@@ -34,7 +34,7 @@ Public Class Matrix3d
 
     Public Function Clone() As Object Implements ICloneable.Clone
         Dim newm As Matrix3d = DirectCast(MemberwiseClone(), Matrix3d)
-        newm.val = newm.val.Clone
+        newm.val = DirectCast(newm.val.Clone, Double(,))
         Return newm
     End Function
 
@@ -244,7 +244,7 @@ Public Class Matrix3d
     End Function
 
     Public Function Transpose() As Matrix3d
-        Dim T As Matrix3d = Me.Clone
+        Dim T As Matrix3d = DirectCast(Me.Clone, Matrix3d)
         T(0, 1) = Me(1, 0)
         T(0, 2) = Me(2, 0)
         T(1, 0) = Me(0, 1)
