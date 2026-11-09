@@ -9,9 +9,9 @@ Public Class Circle3d
     Private _normal As Vector3d
 
     Public Sub New(Center As Point3d, Radius As Double, Normal As Vector3d)
-        _point = Center.Clone
+        _point = DirectCast(Center.Clone, Point3d)
         _r = Radius
-        _normal = Normal.Clone
+        _normal = DirectCast(Normal.Clone, Vector3d)
     End Sub
 
     Public Sub New(p1 As Point3d, p2 As Point3d, p3 As Point3d)
@@ -42,8 +42,8 @@ Public Class Circle3d
 
     Public Function Clone() As Object Implements ICloneable.Clone
         Dim newobj As Circle3d = DirectCast(MemberwiseClone(), Circle3d)
-        newobj.Center = newobj.Center.Clone
-        newobj.Normal = newobj.Normal.Clone
+        newobj.Center = DirectCast(newobj.Center.Clone, Point3d)
+        newobj.Normal = DirectCast(newobj.Normal.Clone, Vector3d)
         Return newobj
     End Function
 
@@ -52,10 +52,10 @@ Public Class Circle3d
     ''' </summary>
     Public Property Center As Point3d
         Get
-            Return _point.Clone
+            Return DirectCast(_point.Clone, Point3d)
         End Get
         Set(value As Point3d)
-            _point = value.Clone
+            _point = DirectCast(value.Clone, Point3d)
         End Set
     End Property
 
@@ -138,7 +138,7 @@ Public Class Circle3d
                 Return Nothing
             End If
         Else
-            Dim l As Line3d = s.IntersectionWith(New Plane3d(Me.Center, Me.Normal))
+            Dim l As Line3d = DirectCast(s.IntersectionWith(New Plane3d(Me.Center, Me.Normal)), Line3d)
             Dim local_coord As Coord3d = New Coord3d(Me.Center, l.Direction, Me.Normal.Cross(l.Direction))
             Dim p As Point3d = l.Point.ConvertTo(local_coord)
 

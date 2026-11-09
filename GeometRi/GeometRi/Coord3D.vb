@@ -38,7 +38,7 @@ Public Class Coord3d
         End If
 
         _origin = p.ConvertToGlobal
-        _axes = m.Clone
+        _axes = DirectCast(m.Clone, Matrix3d)
         If (name <> "") Then
             _name = name
         Else
@@ -104,8 +104,8 @@ Public Class Coord3d
 
     Public Function Clone() As Object Implements ICloneable.Clone
         Dim newobj As Coord3d = DirectCast(MemberwiseClone(), Coord3d)
-        newobj.Origin = newobj.Origin.Clone
-        newobj.Axes = newobj.Axes.Clone
+        newobj.Origin = DirectCast(newobj.Origin.Clone, Point3d)
+        newobj.Axes = DirectCast(newobj.Axes.Clone, Matrix3d)
         newobj._name = "Coord " + count.ToString
         count += 1
         Return newobj
@@ -130,11 +130,11 @@ Public Class Coord3d
     ''' <returns></returns>
     Public Property Axes As Matrix3d
         Get
-            Return _axes.Clone
+            Return DirectCast(_axes.Clone, Matrix3d)
         End Get
         Set(value As Matrix3d)
             If value.IsOrthogonal Then
-                _axes = value.Clone
+                _axes = DirectCast(value.Clone, Matrix3d)
             Else
                 Throw New ArgumentException("The matrix is not orthogonal")
             End If

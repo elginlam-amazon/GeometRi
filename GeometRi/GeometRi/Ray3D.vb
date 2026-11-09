@@ -12,14 +12,14 @@ Public Class Ray3d
         _dir = New Vector3d(1, 0, 0)
     End Sub
     Public Sub New(ByVal p As Point3d, ByVal v As Vector3d)
-        _point = p.Clone
+        _point = DirectCast(p.Clone, Point3d)
         _dir = v.ConvertTo(p.Coord).Normalized
     End Sub
 
     Public Function Clone() As Object Implements ICloneable.Clone
         Dim newobj As Line3d = DirectCast(MemberwiseClone(), Line3d)
-        newobj.Point = newobj.Point.Clone
-        newobj.Direction = newobj.Direction.Clone
+        newobj.Point = DirectCast(newobj.Point.Clone, Point3d)
+        newobj.Direction = DirectCast(newobj.Direction.Clone, Vector3d)
         Return newobj
     End Function
 
@@ -29,10 +29,10 @@ Public Class Ray3d
     ''' <returns></returns>
     Public Property Point As Point3d
         Get
-            Return _point.Clone
+            Return DirectCast(_point.Clone, Point3d)
         End Get
         Set(value As Point3d)
-            _point = value.Clone
+            _point = DirectCast(value.Clone, Point3d)
         End Set
     End Property
 
@@ -42,10 +42,10 @@ Public Class Ray3d
     ''' <returns></returns>
     Public Property Direction As Vector3d
         Get
-            Return _dir.Clone
+            Return DirectCast(_dir.Clone, Vector3d)
         End Get
         Set(value As Vector3d)
-            _dir = value.Clone
+            _dir = DirectCast(value.Clone, Vector3d)
         End Set
     End Property
 
@@ -214,7 +214,7 @@ Public Class Ray3d
     ''' Translate ray by a vector
     ''' </summary>
     Public Function Translate(v As Vector3d) As Ray3d
-        Dim l As Ray3d = Me.Clone
+        Dim l As Ray3d = DirectCast(Me.Clone, Ray3d)
         l.Point = l.Point.Translate(v)
         Return l
     End Function
@@ -223,7 +223,7 @@ Public Class Ray3d
     ''' Rotate ray by a given rotation matrix
     ''' </summary>
     Public Function Rotate(ByVal m As Matrix3d) As Ray3d
-        Dim l As Ray3d = Me.Clone
+        Dim l As Ray3d = DirectCast(Me.Clone, Ray3d)
         l.Point = l.Point.Rotate(m)
         l.Direction = l.Direction.Rotate(m)
         Return l
@@ -233,7 +233,7 @@ Public Class Ray3d
     ''' Rotate ray by a given rotation matrix around point 'p' as a rotation center
     ''' </summary>
     Public Function Rotate(m As Matrix3d, p As Point3d) As Ray3d
-        Dim l As Ray3d = Me.Clone
+        Dim l As Ray3d = DirectCast(Me.Clone, Ray3d)
         l.Point = l.Point.Rotate(m, p)
         l.Direction = l.Direction.Rotate(m)
         Return l

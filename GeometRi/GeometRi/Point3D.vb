@@ -101,7 +101,7 @@ Public Class Point3d
     ''' Convert point to local coordinate system
     ''' </summary>
     Public Function ConvertTo(ByVal coord As Coord3d) As Point3d
-        Dim p As Point3d = Me.Clone
+        Dim p As Point3d = DirectCast(Me.Clone, Point3d)
 
         p = p.ConvertToGlobal()
         If coord Is Nothing Then Return p
@@ -143,7 +143,7 @@ Public Class Point3d
 
     Public Function Add(ByVal p As Point3d) As Point3d
         If (Me._coord <> p._coord) Then p = p.ConvertTo(Me._coord)
-        Dim tmp As Point3d = Me.Clone
+        Dim tmp As Point3d = DirectCast(Me.Clone, Point3d)
         tmp.X += p.X
         tmp.Y += p.Y
         tmp.Z += p.Z
@@ -151,14 +151,14 @@ Public Class Point3d
     End Function
     Public Function Subtract(ByVal p As Point3d) As Point3d
         If (Me._coord <> p._coord) Then p = p.ConvertTo(Me._coord)
-        Dim tmp As Point3d = Me.Clone
+        Dim tmp As Point3d = DirectCast(Me.Clone, Point3d)
         tmp.X -= p.X
         tmp.Y -= p.Y
         tmp.Z -= p.Z
         Return tmp
     End Function
     Public Function Scale(ByVal a As Double) As Point3d
-        Dim tmp As Point3d = Me.Clone
+        Dim tmp As Point3d = DirectCast(Me.Clone, Point3d)
         tmp.X *= a
         tmp.Y *= a
         tmp.Z *= a
@@ -416,7 +416,7 @@ Public Class Point3d
     End Function
 
     Public Overrides Function GetHashCode() As Integer
-        Return GeometRi3D.HashFunction(_x, _y, _z, _coord.GetHashCode)
+        Return GeometRi3D.HashFunction(CInt(_x), CInt(_y), CInt(_z), _coord.GetHashCode)
     End Function
 
 

@@ -12,17 +12,17 @@ Public Class Triangle
         If Point3d.CollinearPoints(A, B, C) Then
             Throw New Exception("Collinear points")
         End If
-        _a = A.Clone
-        _b = B.Clone
-        _c = C.Clone
+        _a = DirectCast(A.Clone, Point3d)
+        _b = DirectCast(B.Clone, Point3d)
+        _c = DirectCast(C.Clone, Point3d)
     End Sub
 
 
     Public Function Clone() As Object Implements ICloneable.Clone
         Dim newobj As Triangle = DirectCast(MemberwiseClone(), Triangle)
-        newobj.A = newobj.A.Clone
-        newobj.B = newobj.B.Clone
-        newobj.C = newobj.C.Clone
+        newobj.A = DirectCast(newobj.A.Clone, Point3d)
+        newobj.B = DirectCast(newobj.B.Clone, Point3d)
+        newobj.C = DirectCast(newobj.C.Clone, Point3d)
         Return newobj
     End Function
 
@@ -32,13 +32,13 @@ Public Class Triangle
     ''' </summary>
     Public Property A As Point3d
         Get
-            Return _a.Clone
+            Return DirectCast(_a.Clone, Point3d)
         End Get
         Set(value As Point3d)
             If Point3d.CollinearPoints(value, _b, _c) Then
                 Throw New Exception("Collinear points")
             End If
-            _a = value.Clone
+            _a = DirectCast(value.Clone, Point3d)
         End Set
     End Property
 
@@ -47,13 +47,13 @@ Public Class Triangle
     ''' </summary>
     Public Property B As Point3d
         Get
-            Return _b.Clone
+            Return DirectCast(_b.Clone, Point3d)
         End Get
         Set(value As Point3d)
             If Point3d.CollinearPoints(_a, value, _c) Then
                 Throw New Exception("Collinear points")
             End If
-            _b = value.Clone
+            _b = DirectCast(value.Clone, Point3d)
         End Set
     End Property
 
@@ -62,13 +62,13 @@ Public Class Triangle
     ''' </summary>
     Public Property C As Point3d
         Get
-            Return _c.Clone
+            Return DirectCast(_c.Clone, Point3d)
         End Get
         Set(value As Point3d)
             If Point3d.CollinearPoints(_a, _b, value) Then
                 Throw New Exception("Collinear points")
             End If
-            _c = value.Clone
+            _c = DirectCast(value.Clone, Point3d)
         End Set
     End Property
 
